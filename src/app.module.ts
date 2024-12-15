@@ -1,17 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController} from './app.controller';
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule,ConfigService } from '@nestjs/config';
-
-
+import { ConfigModule } from '@nestjs/config';
+//import { ConfigModule, ConfigService } from '@nestjs/config';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
-import { Mongoose } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
-
     ConfigModule.forRoot({
       isGlobal: true, // Hace que las variables estén disponibles globalmente
     }),
@@ -22,7 +19,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     ProductsModule,
 
     UsersModule,
-    
   ],
   controllers: [AppController],
   providers: [AppService],

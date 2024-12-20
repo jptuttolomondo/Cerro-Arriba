@@ -1,0 +1,24 @@
+eliminar app.controller
+app.service
+los imports en app.module
+los controllers y providers en app.module
+eliminara el front hello world
+
+
+
+comandos nest
+nest g --help    ayuda y lista de comandos
+nest g mo nombreDelModulo    crear modulo 
+nest g co nombreDelController --no-spec crea un controller dentro de la carpeta del modulo correspodiente 
+            si agrego --no-spec no crea el archivo spec para test
+
+nest g s nombreDelServicio  creo un service  . @Injectable es una funcion de nestjs/common que indica que podremos invocarlo desde otra parte
+
+npm install @nestjs/mongoose mongoose   instalamos la biblioteca 
+
+----------------------
+nest g pipe   para validar
+
+
+
+

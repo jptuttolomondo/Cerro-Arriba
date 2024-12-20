@@ -97,3 +97,15 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+# Cerro-Arriba
+### Delivery de desayunos y comidas en restaurante Cerro Arriba Humahuaca
+
+## Descripcion del sistema
+
+- EL servicio se basa en una plataforma que opera desde hoteles y establecimientos fisicos, donde el cliente puede contratar servicios de desayuno- cafeteria.
+- El cliente puede escanear un qr, ingresar a la plataforma de ventas y seleccionar los productos de cafeteria, ya sea en forma individual o en combo, agregando  a un carrito, generando una orden de compra por el monto total.
+- El servicio se solicita en una ubicacion especifica, hora de entrega y el delivery se realiza en ese lugar
+- Una vez confirmado el pedido, se solicita un numero de whatsapp de contacto. y debera seleccionar metodo de pago: efectivo, transferencia electronica o pago con tarjeta de credito o debito. 
+- En caso de pagar en efectivo, indicar con que billetes se paga, a fin de llevar el vuelto justo con el delivey.

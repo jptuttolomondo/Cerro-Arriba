@@ -1,4 +1,6 @@
-import React from 'react';
+
+
+
 
 type Product = {
   _id: string;
@@ -11,18 +13,14 @@ type Product = {
 type CartProps = {
   cartItems: Product[];
   onRemoveFromCart: (productId: string) => void;
+  onConfirmOrder: () => void;
 };
 
-const Cart: React.FC<CartProps> = ({ cartItems, onRemoveFromCart }) => {
+const Cart: React.FC<CartProps> = ({ cartItems, onRemoveFromCart, onConfirmOrder }) => {
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.price * (item.quantity || 1),
     0
   );
-
-  const handleConfirmOrder = () => {
-    console.log('Orden confirmada:', cartItems);
-    alert('¡Orden confirmada!');
-  };
 
   return (
     <div style={styles.cart}>
@@ -31,38 +29,25 @@ const Cart: React.FC<CartProps> = ({ cartItems, onRemoveFromCart }) => {
         <p>No hay productos en el carrito.</p>
       ) : (
         <>
-          <div style={styles.cartListContainer}>
-            <ul style={styles.cartList}>
-              {cartItems.map((item) => (
-                <li key={item._id} style={styles.cartItem}>
-                  <img src={item.image} alt={item.product_name} style={styles.image} />
-                  <div>
-                    <h3>{item.product_name}</h3>
-                    <p>Precio: ${item.price.toFixed(2)}</p>
-                    <p>Cantidad: {item.quantity}</p>
-                  </div>
-                  <button
-                    style={styles.removeButton}
-                    onClick={() => onRemoveFromCart(item._id)}
-                  >
-                    Quitar / Reducir cantidad
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div style={styles.totalContainer}>
-            <h3>Total: ${totalPrice.toFixed(2)}</h3>
-          </div>
-          <button style={styles.confirmButton} onClick={handleConfirmOrder}>
-            Confirmar Orden
-          </button>
+          <ul style={styles.cartList}>
+            {cartItems.map((item) => (
+              <li key={item._id} style={styles.cartItem}>
+                <div>
+                  <h3>{item.product_name}</h3>
+                  <p>Precio: ${item.price.toFixed(2)}</p>
+                  <p>Cantidad: {item.quantity || 1}</p>
+                </div>
+                <button onClick={() => onRemoveFromCart(item._id)}>Quitar</button>
+              </li>
+            ))}
+          </ul>
+          <h3>Total: ${totalPrice.toFixed(2)}</h3>
+          <button onClick={onConfirmOrder}>Confirmar Orden</button>
         </>
       )}
     </div>
   );
 };
-
 const styles = {
   cart: {
     width: '100%',
@@ -128,7 +113,7 @@ const styles = {
   },
   confirmButton: {
     padding: '1em 2em',
-    backgroundColor: 'rgb(255 228 0)',
+    backgroundColor: 'rgb(255, 228, 0)',
     color: 'rgb(0 0 0)',
     fontSize: '1rem',
     width: '50%',

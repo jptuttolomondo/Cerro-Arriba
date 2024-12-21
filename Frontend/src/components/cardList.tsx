@@ -19,10 +19,11 @@ const CardList: React.FC<CardListProps> = ({ onAddToCart }) => {
   const [loading, setLoading] = useState(true);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
 
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/products/');
+        const response = await axios.get(import.meta.env.VITE_BACKEND +import.meta.env.VITE_PRODUCTS_BACK);
         setProducts(response.data);
       } catch (error) {
         console.error('Error al cargar los productos:', error);
@@ -106,28 +107,8 @@ const cardListStyles = {
     cursor: 'pointer',
     transition: 'transform 0.3s ease-in-out',
   },
-  // container: {
-  //   display: 'flex',
-  //   gap: '16px',
-  //   flexWrap: 'wrap' as const,
-  //   justifyContent: 'center',
-  //   marginTop: '20px',
-  //   backgroundColor: '#121212', // Fondo oscuro para el contenedor
-  //   color: '#fff', // Texto blanco para el contenedor
-  //   padding: '20px',
-    
-  // },
-  // wrapper: {
-  //   position: 'relative' as const,
-  //   width: '100%',
-  //   maxWidth: '250px',
-  //   backgroundColor: '#333', // Fondo más oscuro para cada tarjeta
-  //   borderRadius: '8px',
-  //   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Sombra más suave
-  //   overflow: 'hidden',
-  //   cursor: 'pointer',
-  //   transition: 'transform 0.3s ease-in-out', // Efecto de hover
-  // },
+ 
+
   wrapperHover: {
     transform: 'scale(1.05)', // Efecto al pasar el mouse
   },

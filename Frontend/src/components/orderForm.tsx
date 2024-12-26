@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
-const OrderForm: React.FC = () => {
+import { Product } from '../types/types';
+
+
+type OrderFormProps = {
+  cartItems: Product[];
+  onOrderSubmit: () => void;
+};
+const OrderForm: React.FC<OrderFormProps> =({ cartItems }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,7 +17,7 @@ const OrderForm: React.FC = () => {
     whatsapp: '',
     deliveryTime: '',
     paymentMethod: 'cash',
-  });
+  });  
 
   const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -18,12 +25,16 @@ const OrderForm: React.FC = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //postear la orden 
-    console.log('Orden enviada:', formData);
-  //  alert('¡Orden enviada!');
+  const orderData = {
+    userDetails: formData,
+    cartItems,
+    total: cartItems.reduce((sum, item) => sum + item.price * (item.quantity||0), 0),
+  };
+  console.log('Orden enviada:', orderData);
 
   Swal.fire({
     title: 'Orden enviada con éxito',
@@ -41,6 +52,18 @@ const OrderForm: React.FC = () => {
     <div style={styles.container}>
       <h2>Formulario de Orden</h2>
       <form onSubmit={handleSubmit} style={styles.form}>
+      <div style={styles.cartSummary}>
+          <h3>Productos en el carrito:</h3>
+          <ul style={styles.cartList}>
+            {cartItems.map((item) => (
+              <li key={item._id}>
+                {item.product_name} - {item.quantity} x ${item.price.toFixed(2)}
+              </li>
+            ))}
+          </ul>
+          
+        </div>
+
         <div style={styles.field}>
           <label>Nombre:</label>
           <input type="text" name="name" value={formData.name} onChange={handleChange} required />
@@ -85,6 +108,13 @@ const styles = {
     flexDirection: 'column' as const,
     gap: '10px',
   },
+  cartSummary: {
+    marginBottom: '16px',
+  },
+  cartList: {
+    listStyle: 'none' as const,
+    padding: 0,
+  },
   field: {
     display: 'flex',
     flexDirection: 'column' as const,
@@ -99,5 +129,6 @@ const styles = {
     cursor: 'pointer',
   },
 };
+
 
 export default OrderForm;

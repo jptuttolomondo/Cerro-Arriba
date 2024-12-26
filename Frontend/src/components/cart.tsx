@@ -14,6 +14,7 @@ type CartProps = {
   cartItems: Product[];
   onRemoveFromCart: (productId: string) => void;
   onConfirmOrder: () => void;
+  
 };
 
 const Cart: React.FC<CartProps> = ({ cartItems, onRemoveFromCart, onConfirmOrder }) => {

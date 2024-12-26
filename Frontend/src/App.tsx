@@ -2,15 +2,7 @@ import React, { useState } from 'react';
 import CardList from './components/cardList.tsx';
 import Cart from './components/cart.tsx';
 import OrderForm from './components/orderForm.tsx';
-
-type Product = {
-  _id: string;
-  image: string;
-  product_name: string;
-  price: number;
-  description: string;
-  quantity?: number;
-};
+import { Product } from './types/types.tsx';
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<Product[]>([]);
@@ -48,6 +40,14 @@ const App: React.FC = () => {
     setShowOrderForm(true); // Muestra el formulario al confirmar la orden
   };
 
+  
+  const handleOrderSubmit = () => {
+    setCart([]); // Vacía el carrito
+    setShowOrderForm(false); // Regresa a la vista principal
+  };
+
+
+
   return (
     <div style={styles.container}>
       <div style={styles.productsSection}>
@@ -62,7 +62,7 @@ const App: React.FC = () => {
             onConfirmOrder={handleConfirmOrder}
           />
         ) : (
-          <OrderForm />
+          <OrderForm  cartItems={cart} onOrderSubmit={handleOrderSubmit}/>
         )}
       </div>
     </div>

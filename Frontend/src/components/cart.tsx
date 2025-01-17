@@ -1,54 +1,98 @@
+import { FC , useEffect} from 'react';
+import { Product } from '../types/product.types.tsx';
+import {CartItem, CartProps} from '../redux/types_redux/interfaces.tsx';
+import { useCartSelectorProducts,useCartSelectorTotalPrice } from '../redux/selectors/Carts.selectors.tsx';
+import { useDispatch } from "../redux/store/store.tsx";
+import { updatedCart,AddToCart,lessToCart,outToCart} from '../redux/actions/carts.actions.tsx';
+
+
+const Cart: FC<CartProps> = () => {
+  const dispatch = useDispatch();
+  const cartUpdated : CartItem[] = useCartSelectorProducts()as CartItem[];
+  const totalPrice=useCartSelectorTotalPrice()
+ //const [updatedCartItems, setUpdatedCartItems] = useState(cart);
+
+
+  useEffect(() => {
+
+dispatch(updatedCart(cartUpdated))
+  }, [dispatch,cartUpdated]);
+
+  const handleIncreaseQuantity = (productId: string) => {
+
+
+const productToIncrease :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
+if(productToIncrease===undefined) return
+  else  dispatch(AddToCart(productToIncrease as Product))
+   
+  };
+
+  const handleDecreaseQuantity = (productId: string) => {
+
+const productToDecrease :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
+if(productToDecrease===undefined) return
+    dispatch(lessToCart(productToDecrease as Product))
+  };
 
 
 
+  const handleRemoveFromCart = (productId: string) => {
+    const productToDelete :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
+    dispatch(outToCart(productToDelete as Product))
+  };
 
-type Product = {
-  _id: string;
-  image: string;
-  product_name: string;
-  price: number;
-  quantity?: number;
-};
+const handleConfirmOrder=((cart:CartItem[])=>{
 
-type CartProps = {
-  cartItems: Product[];
-  onRemoveFromCart: (productId: string) => void;
-  onConfirmOrder: () => void;
-  
-};
-
-const Cart: React.FC<CartProps> = ({ cartItems, onRemoveFromCart, onConfirmOrder }) => {
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * (item.quantity || 1),
-    0
-  );
-
+const cartToConfirm={...cart,totalPrice}
+console.log(cartToConfirm)
+//redirigir al formulario!!!
+})
+ 
   return (
     <div style={styles.cart}>
-      <h2 style={styles.cartTitle}>Carrito</h2>
-      {cartItems.length === 0 ? (
+      <h2 style={styles.cartTitle}>Carrito de Compras</h2>
+      {
+      cartUpdated.length === 0 ? (
         <p>No hay productos en el carrito.</p>
       ) : (
         <>
+      
           <ul style={styles.cartList}>
-            {cartItems.map((item) => (
+            {
+            cartUpdated.map((item) => (
               <li key={item._id} style={styles.cartItem}>
                 <div>
                   <h3>{item.product_name}</h3>
                   <p>Precio: ${item.price.toFixed(2)}</p>
                   <p>Cantidad: {item.quantity || 1}</p>
+                  <div style={styles.quantityControls}>
+                   
+                    <button 
+                      style={styles.confirmButton} 
+                      onClick={() => handleIncreaseQuantity(item._id)}
+                    >
+                      +
+                    </button>
+                    <button 
+                      style={styles.confirmButton} 
+                      onClick={() => handleDecreaseQuantity(item._id)}
+                    >
+                      -
+                    </button>
+                  </div>
                 </div>
-                <button onClick={() => onRemoveFromCart(item._id)}>Quitar</button>
+                <button style={styles.removeButton} onClick={() => handleRemoveFromCart(item._id)}>Quitar</button>
               </li>
             ))}
           </ul>
           <h3>Total: ${totalPrice.toFixed(2)}</h3>
-          <button onClick={onConfirmOrder}>Confirmar Orden</button>
+          <button style={styles.confirmButton} onClick={()=>handleConfirmOrder(cartUpdated)}>Confirmar Orden</button>
         </>
       )}
     </div>
   );
 };
+
 const styles = {
   cart: {
     width: '100%',
@@ -66,6 +110,7 @@ const styles = {
     fontSize: '20px',
     fontWeight: 'bold' as const,
     color: '#fff',
+    textAlign: 'center' as const,
   },
   cartListContainer: {
     flex: 1, // Ocupa todo el espacio disponible
@@ -82,10 +127,12 @@ const styles = {
   },
   cartItem: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: '16px',
+    flexDirection: 'column' as const, // Para apilar elementos verticalmente
+    alignItems: 'flex-start' as const, // Alinea los elementos al inicio
+    justifyContent: 'flex-start' as const,
     gap: '12px',
+    marginBottom: '16px',
+    position: 'relative'as const, // Permite posicionar el botón "Quitar" de manera absoluta
   },
   image: {
     width: '60px',
@@ -94,19 +141,21 @@ const styles = {
     objectFit: 'cover' as const,
   },
   removeButton: {
+    position: 'absolute' as const, // Posición absoluta respecto al contenedor del producto
+    bottom: '0', // Lo coloca al final del contenedor
+    right: '16px', // Lo alinea a la derecha
     padding: '6px 10px',
     backgroundColor: '#dc3545',
     color: '#fff',
     border: 'none',
     borderRadius: '4px',
-    cursor: 'pointer',
+    cursor: 'pointer'as const,
     fontSize: '14px',
-    marginLeft: 'auto',
   },
   totalContainer: {
-    display: 'flex',
-    justifyContent: 'center', // Centra horizontalmente
-    alignItems: 'center',    // Centra verticalmente
+    display: 'flex' as const,
+    justifyContent: 'center' as const, // Centra horizontalmente
+    alignItems: 'center' as const,    // Centra verticalmente
     fontSize: '1.5rem',
     fontWeight: 'bold' as const,
     marginTop: '12px',
@@ -119,14 +168,36 @@ const styles = {
     fontSize: '1rem',
     width: '50%',
     maxWidth: '300px',
-    height: 'auto',
+    height: 'auto' as const,
     border: 'none',
     borderRadius: '0.5em',
-    cursor: 'pointer',
+    cursor: 'pointer' as const,
     textAlign: 'center' as const,
-    margin: '0 auto', // Asegura que el botón esté centrado si no se usa Flexbox
+    margin: '0 auto' as const, // Asegura que el botón esté centrado si no se usa Flexbox
   },
-};
 
+  quantityControls: {
+    display: 'flex' as const,
+    flexDirection: 'row' as const, // Los botones de cantidad permanecen en línea
+    gap: '8px',
+    marginBottom: '8px', // Da espacio debajo de los controles
+  },
+  controlButton: {
+    padding: '0.5em 1em',
+    backgroundColor: 'rgb(255, 228, 0)',
+    color: 'rgb(0, 0, 0)',
+    fontSize: '2 rem', // Aumenta el tamaño del texto
+    fontWeight: 'bold' as const, // Opcional: para un texto más grueso
+    width: '50%', // Mitad del tamaño de confirmButton
+    height: '2.5rem', // Define una altura consistente
+    border: 'none' as const,
+    borderRadius: '0.25em',
+    cursor: 'pointer' as const,
+    textAlign: 'center' as const,
+    display: 'flex', // Centra el texto vertical y horizontalmente
+    justifyContent: 'center'as const,
+    alignItems: 'center'as const,
+  },
+}
 
 export default Cart;

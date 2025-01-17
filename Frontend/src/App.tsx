@@ -57,7 +57,7 @@ const App: React.FC = () => {
       <div style={styles.cartSection}>
         {!showOrderForm ? (
           <Cart
-            cartItems={cart}
+          cart={cart}
             onRemoveFromCart={handleRemoveFromCart}
             onConfirmOrder={handleConfirmOrder}
           />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
-import { Product } from '../types/types';
+import { Product } from '../types/product.types.tsx';
 
 
 type OrderFormProps = {

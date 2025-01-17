@@ -1,10 +1,5 @@
 import React from 'react';
-
-type CardProps = {
-  image: string;
-  name: string;
-  price: number;
-};
+import { CardProps } from '../types/card.types.tsx';
 
 const Card: React.FC<CardProps> = ({ image, name, price }) => {
   return (

@@ -43,6 +43,10 @@ const CardList: React.FC<CardListProps> = () => {
 
   return (
     <div style={cardListStyles.container}>
+      <h1 style={cardListStyles.title}>Productos</h1> {/* Mueve aquí el título */}
+         <div style={cardListStyles.productsSection}>
+          </div>
+            
       {products.map((product) => (
         <div
           key={product._id}
@@ -94,33 +98,30 @@ const CardList: React.FC<CardListProps> = () => {
 
 const cardListStyles = {
   container: {
-    display: "flex",
-    gap: "16px",
-    flexWrap: "wrap" as const,
-    justifyContent: "center",
-    marginTop: "20px",
-    backgroundColor: "#121212", // Fondo oscuro para el contenedor
-    color: "#fff", // Texto blanco para el contenedor
+    display: "flex" as const,
+    alignItems: "center",
+    gap: "20px",
     padding: "20px",
-    maxHeight: "500px", // Altura máxima del contenedor
-    overflowY: "auto" as const, // Habilita el desplazamiento vertical
-    border: "1px solid #444", // Opcional: Bordes para el contenedor
-    borderRadius: "8px" // Opcional: Bordes redondeados
+    backgroundColor: "#121212",
+    color: "#fff",
+    minHeight: "100vh",
+    width: "100%", // Asegura que ocupe todo el ancho disponible
+  flexWrap:"wrap"as const
+    
   },
   wrapper: {
-    position: "relative" as const,
-    width: "100%",
-    maxWidth: "250px",
     backgroundColor: "#333",
     borderRadius: "8px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     overflow: "hidden",
     cursor: "pointer",
-    transition: "transform 0.3s ease-in-out"
+    transition: "transform 0.3s ease-in-out",
+    width: "100%", // Permite que se adapten al ancho de la columna
+    maxWidth: "300px", // Límite opcional
+    
   },
-
   wrapperHover: {
-    transform: "scale(1.05)" // Efecto al pasar el mouse
+    transform: "scale(1.05)", // Efecto al pasar el mouse
   },
   overlay: {
     position: "fixed" as const,
@@ -176,7 +177,24 @@ const cardListStyles = {
     "&:hover": {
       backgroundColor: "#0056b3" // Cambio de color en hover
     }
-  }
+  },
+  title: {
+    fontSize: "24px",
+    marginBottom: "16px",
+    textAlign: "center" as const,
+    color: "#fff",
+    width: "100%", // Asegura que no afecte el ancho del contenedor
+  },
+  productsSection: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", // Filas automáticas
+    gap: "16px", // Espaciado entre tarjetas
+    width: "100%",
+    maxWidth: "1200px", // Limitar el ancho total si es necesario
+    margin: "0 auto", // Centra horizontalmente el contenedor
+    padding: "20px", // Espaciado interno
+    justifyItems: "center", // Opcional: Centra tarjetas en cada columna
+  },
 };
 
 export default CardList;

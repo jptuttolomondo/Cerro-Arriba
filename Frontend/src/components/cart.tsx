@@ -1,97 +1,108 @@
-import { FC , useEffect} from 'react';
+import { FC } from 'react';
 import { Product } from '../types/product.types.tsx';
 import {CartItem, CartProps} from '../redux/types_redux/interfaces.tsx';
 import { useCartSelectorProducts,useCartSelectorTotalPrice } from '../redux/selectors/Carts.selectors.tsx';
 import { useDispatch } from "../redux/store/store.tsx";
-import { updatedCart,AddToCart,lessToCart,outToCart} from '../redux/actions/carts.actions.tsx';
+import { AddToCart,lessToCart,outToCart} from '../redux/actions/carts.actions.tsx';
 
+//import { useNavigate } from 'react-router-dom';
+//import Navigation from './navigation.tsx'
+import { useState } from 'react'; // Importa el hook useState
+import OrderForm from './orderForm.tsx';
 
 const Cart: FC<CartProps> = () => {
+  const cartUpdated: CartItem[] = useCartSelectorProducts() as CartItem[];
+  const totalPrice = useCartSelectorTotalPrice();
   const dispatch = useDispatch();
-  const cartUpdated : CartItem[] = useCartSelectorProducts()as CartItem[];
-  const totalPrice=useCartSelectorTotalPrice()
- //const [updatedCartItems, setUpdatedCartItems] = useState(cart);
 
-
-  useEffect(() => {
-
-dispatch(updatedCart(cartUpdated))
-  }, [dispatch,cartUpdated]);
+  // Estado para controlar la visualización del formulario de confirmación
+  const [isOrderFormVisible, setOrderFormVisible] = useState(false);
 
   const handleIncreaseQuantity = (productId: string) => {
-
-
-const productToIncrease :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
-if(productToIncrease===undefined) return
-  else  dispatch(AddToCart(productToIncrease as Product))
-   
+    const productToIncrease = cartUpdated.find((prod) => prod._id === productId);
+    if (!productToIncrease) return;
+    dispatch(AddToCart(productToIncrease as Product));
   };
 
   const handleDecreaseQuantity = (productId: string) => {
-
-const productToDecrease :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
-if(productToDecrease===undefined) return
-    dispatch(lessToCart(productToDecrease as Product))
+    const productToDecrease = cartUpdated.find((prod) => prod._id === productId);
+    if (!productToDecrease) return;
+    dispatch(lessToCart(productToDecrease as Product));
   };
-
-
 
   const handleRemoveFromCart = (productId: string) => {
-    const productToDelete :CartItem|undefined = cartUpdated.find(prod=>prod._id===productId)
-    dispatch(outToCart(productToDelete as Product))
+    const productToDelete = cartUpdated.find((prod) => prod._id === productId);
+    if (!productToDelete) return;
+    dispatch(outToCart(productToDelete as Product));
   };
 
-const handleConfirmOrder=((cart:CartItem[])=>{
+  const handleConfirmOrder = () => {
+    console.log(cartUpdated);
+    console.log(totalPrice);
+    setOrderFormVisible(true); // Muestra el formulario al confirmar
+  };
 
-const cartToConfirm={...cart,totalPrice}
-console.log(cartToConfirm)
-//redirigir al formulario!!!
-})
- 
+  const handleOrderSubmit = () => {
+    console.log('Orden confirmada:', cartUpdated, totalPrice);
+    // Lógica adicional para enviar la orden
+  };
+
   return (
     <div style={styles.cart}>
-      <h2 style={styles.cartTitle}>Carrito de Compras</h2>
-      {
-      cartUpdated.length === 0 ? (
-        <p>No hay productos en el carrito.</p>
+      {isOrderFormVisible ? ( // Verifica si debe mostrarse el formulario
+          <OrderForm
+          cartItems={cartUpdated}
+          totalPrice={totalPrice}
+          onOrderSubmit={handleOrderSubmit} // Aquí pasamos la función requerida
+        />
       ) : (
         <>
-      
-          <ul style={styles.cartList}>
-            {
-            cartUpdated.map((item) => (
-              <li key={item._id} style={styles.cartItem}>
-                <div>
-                  <h3>{item.product_name}</h3>
-                  <p>Precio: ${item.price.toFixed(2)}</p>
-                  <p>Cantidad: {item.quantity || 1}</p>
-                  <div style={styles.quantityControls}>
-                   
-                    <button 
-                      style={styles.confirmButton} 
-                      onClick={() => handleIncreaseQuantity(item._id)}
+          <h2 style={styles.cartTitle}>Carrito de Compras</h2>
+          {cartUpdated.length === 0 ? (
+            <p>No hay productos en el carrito.</p>
+          ) : (
+            <>
+              <ul style={styles.cartList}>
+                {cartUpdated.map((item) => (
+                  <li key={item._id} style={styles.cartItem}>
+                    <h3>{item.product_name}</h3>
+                    <p>Precio: ${item.price.toFixed(2)}</p>
+                    <p>Cantidad: {item.quantity || 1}</p>
+                    <div style={styles.quantityControls}>
+                      <button
+                        style={styles.confirmButton}
+                        onClick={() => handleIncreaseQuantity(item._id)}
+                      >
+                        +
+                      </button>
+                      <button
+                        style={styles.confirmButton}
+                        onClick={() => handleDecreaseQuantity(item._id)}
+                      >
+                        -
+                      </button>
+                    </div>
+                    <button
+                      style={styles.removeButton}
+                      onClick={() => handleRemoveFromCart(item._id)}
                     >
-                      +
+                      Quitar
                     </button>
-                    <button 
-                      style={styles.confirmButton} 
-                      onClick={() => handleDecreaseQuantity(item._id)}
-                    >
-                      -
-                    </button>
-                  </div>
-                </div>
-                <button style={styles.removeButton} onClick={() => handleRemoveFromCart(item._id)}>Quitar</button>
-              </li>
-            ))}
-          </ul>
-          <h3>Total: ${totalPrice.toFixed(2)}</h3>
-          <button style={styles.confirmButton} onClick={()=>handleConfirmOrder(cartUpdated)}>Confirmar Orden</button>
+                  </li>
+                ))}
+              </ul>
+              <h3>Total: ${totalPrice.toFixed(2)}</h3>
+              <button style={styles.confirmButton} onClick={handleConfirmOrder}>
+                Confirmar Orden
+              </button>
+            </>
+          )}
         </>
       )}
     </div>
   );
 };
+
 
 const styles = {
   cart: {

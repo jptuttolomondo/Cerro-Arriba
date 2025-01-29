@@ -7,6 +7,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { WhatsappModule } from './whatsapp/whatsapp.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -19,6 +20,8 @@ import { MongooseModule } from '@nestjs/mongoose';
     ProductsModule,
 
     UsersModule,
+
+    WhatsappModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,5 +4,5 @@ export type Product = {
     product_name: string;
     price: number;
     description: string;
-    quantity?: number; // Siempre definido
+    quantity: number; // Siempre definido
   };

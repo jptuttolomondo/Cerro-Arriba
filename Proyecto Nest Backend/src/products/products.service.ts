@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductDocument } from './schema/product.schema';
@@ -16,7 +16,7 @@ export class ProductsService {
       const createProduct = await this.ProductModel.create(createProductDto);
       return createProduct;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
@@ -25,24 +25,28 @@ export class ProductsService {
       const products = await this.ProductModel.find();
       return products;
     } catch (error) {
-      throw new Error(error);
+      throw new InternalServerErrorException(error.message);
     }
   }
 
   async findOne(id: string) {
-    const product = await this.ProductModel.findOne({ _id: id });
+    const product = await this.ProductModel.findById(id);
 
     return product;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    await this.ProductModel.findByIdAndUpdate(id, updateProductDto);
-    const ProductUpdated = await this.ProductModel.findOne({ _id: id });
-    return ProductUpdated;
+    try {
+      await this.ProductModel.findByIdAndUpdate(id, updateProductDto);
+      const ProductUpdated = await this.ProductModel.findById(id);
+      return ProductUpdated;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   async remove(id: string) {
-    const product = await this.ProductModel.deleteOne({ _id: id });
+    const product = await this.ProductModel.findOneAndDelete({ _id: id });
     return product;
   }
 }

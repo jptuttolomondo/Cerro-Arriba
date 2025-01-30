@@ -6,8 +6,6 @@ import Card from "./cards.tsx";
 import { Product } from "../types/product.types.tsx";
 import { CardListProps } from "../types/card.types.tsx";
 import { AddToCart } from "../redux/actions/carts.actions.tsx";
-//import { CartItem } from "../redux/types_redux/interfaces.tsx";
-//import { CartProps } from "../redux/types_redux/interfaces.tsx";
 
 const CardList: React.FC<CardListProps> = () => {
   const [loading, setLoading] = useState(true);
@@ -15,18 +13,14 @@ const CardList: React.FC<CardListProps> = () => {
   const dispatch = useDispatch();
 
   const products = useProductsSelector();
-  const handleAddToCart= (product:Product)=>{
-
-      return dispatch(AddToCart(product)); // Aquí puedes pasar el producto al carrito usando el dispatch
-    
-
-  }
+  const handleAddToCart = (product: Product) => {
+    return dispatch(AddToCart(product));
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         await dispatch(getAllProducts());
-     
       } catch (error) {
         console.error("Error al cargar los productos:", error);
       } finally {
@@ -43,15 +37,13 @@ const CardList: React.FC<CardListProps> = () => {
 
   return (
     <div style={cardListStyles.container}>
-      <h1 style={cardListStyles.title}>Productos</h1> {/* Mueve aquí el título */}
-         <div style={cardListStyles.productsSection}>
-          </div>
-            
+      <h1 style={cardListStyles.title}>Productos</h1> {/* título */}
+      <div style={cardListStyles.productsSection}></div>
       {products.map((product) => (
         <div
           key={product._id}
           style={cardListStyles.wrapper}
-          onClick={() => setActiveProduct(product)} // Mostrar overlay solo en clic
+          onClick={() => setActiveProduct(product)}
         >
           <Card
             image={product.image}
@@ -60,12 +52,10 @@ const CardList: React.FC<CardListProps> = () => {
           />
         </div>
       ))}
-
-      {/* Overlay controlado por el estado */}
       {activeProduct && (
         <div
           style={cardListStyles.overlay}
-          onClick={() => setActiveProduct(null)} // Cerrar overlay al hacer clic fuera
+          onClick={() => setActiveProduct(null)}
         >
           <div
             style={cardListStyles.overlayContent}
@@ -105,9 +95,8 @@ const cardListStyles = {
     backgroundColor: "#121212",
     color: "#fff",
     minHeight: "100vh",
-    width: "100%", // Asegura que ocupe todo el ancho disponible
-  flexWrap:"wrap"as const
-    
+    width: "100%",
+    flexWrap: "wrap" as const
   },
   wrapper: {
     backgroundColor: "#333",
@@ -116,12 +105,11 @@ const cardListStyles = {
     overflow: "hidden",
     cursor: "pointer",
     transition: "transform 0.3s ease-in-out",
-    width: "100%", // Permite que se adapten al ancho de la columna
-    maxWidth: "300px", // Límite opcional
-    
+    width: "100%",
+    maxWidth: "300px"
   },
   wrapperHover: {
-    transform: "scale(1.05)", // Efecto al pasar el mouse
+    transform: "scale(1.05)"
   },
   overlay: {
     position: "fixed" as const,
@@ -129,7 +117,7 @@ const cardListStyles = {
     left: "0",
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)", // Fondo oscuro para el overlay
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -139,13 +127,13 @@ const cardListStyles = {
     display: "flex",
     flexDirection: "column" as const,
     alignItems: "center",
-    backgroundColor: "#222", // Fondo más oscuro para el contenido
+    backgroundColor: "#222",
     padding: "20px",
     borderRadius: "8px",
     boxShadow: "0 8px 16px rgba(0, 0, 0, 0.4)",
     maxWidth: "400px",
     width: "90%",
-    zIndex: 1001 // Aseguramos que el contenido del overlay esté encima
+    zIndex: 1001
   },
   overlayImage: {
     width: "100%",
@@ -156,26 +144,26 @@ const cardListStyles = {
   },
   overlayDetails: {
     textAlign: "center" as const,
-    color: "#fff" // Aseguramos que el texto en el overlay sea blanco
+    color: "#fff"
   },
   price: {
     fontSize: "16px",
-    color: "#fff", // Aseguramos que el precio sea blanco
+    color: "#fff",
     margin: "8px 0",
-    zIndex: 1002 // Aseguramos que el precio esté por encima de otros elementos
+    zIndex: 1002
   },
   button: {
     padding: "10px 20px",
-    //backgroundColor: '#007bff', // Botón azul
+
     backgroundColor: "rgb(255, 228, 0)",
-    // color: '#fff',
+
     color: "rgb(0 0 0)",
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
     transition: "background-color 0.3s ease",
     "&:hover": {
-      backgroundColor: "#0056b3" // Cambio de color en hover
+      backgroundColor: "#0056b3"
     }
   },
   title: {
@@ -183,18 +171,18 @@ const cardListStyles = {
     marginBottom: "16px",
     textAlign: "center" as const,
     color: "#fff",
-    width: "100%", // Asegura que no afecte el ancho del contenedor
+    width: "100%"
   },
   productsSection: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", // Filas automáticas
-    gap: "16px", // Espaciado entre tarjetas
+    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+    gap: "16px",
     width: "100%",
-    maxWidth: "1200px", // Limitar el ancho total si es necesario
-    margin: "0 auto", // Centra horizontalmente el contenedor
-    padding: "20px", // Espaciado interno
-    justifyItems: "center", // Opcional: Centra tarjetas en cada columna
-  },
+    maxWidth: "1200px",
+    margin: "0 auto",
+    padding: "20px",
+    justifyItems: "center"
+  }
 };
 
 export default CardList;

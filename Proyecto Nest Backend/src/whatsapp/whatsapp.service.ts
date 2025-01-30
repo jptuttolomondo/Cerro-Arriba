@@ -36,7 +36,7 @@ export class WhatsappService implements OnModuleInit {
     this.client.initialize();
   }
 
-  async sendMessage(phoneNumber: string, message: string) {
+  async sendMessage(phoneNumber: string, order: any) {
     const chatId = `${phoneNumber}@c.us`;
 
     // Verificar si el número está registrado en WhatsApp
@@ -45,8 +45,29 @@ export class WhatsappService implements OnModuleInit {
       this.logger.warn(`Número ${phoneNumber} no registrado en WhatsApp.`);
       throw new Error('Número no registrado en WhatsApp.');
     }
+    const message = this.formatOrderMessage(order);
 
-    // Enviar el mensaje
     return this.client.sendMessage(chatId, message);
+  }
+
+  private formatOrderMessage(order: any): string {
+    const { cartItems, totalPrice, userDetails } = order;
+
+    let message = `🛒 *Cerro Arriba Restaurante*\n\n`;
+    message += `👤 *Cliente:* ${userDetails.name}\n`;
+    message += `📍 *Dirección:* ${userDetails.location}\n`;
+    message += `📱 *WhatsApp:* ${userDetails.whatsapp}\n`;
+    message += `💳 *Método de pago:* ${userDetails.paymentMethod}\n`;
+    message += `⏰ *Hora de entrega:* ${userDetails.deliveryTime}\n\n`;
+    message += `📦 *Productos:*\n`;
+
+    cartItems.forEach((item: any, index: number) => {
+      message += `\n${index + 1}. ${item.product_name} - Cantidad: ${item.quantity} - Precio: $${item.price}`;
+    });
+
+    message += `\n\n💰 *Total: $${totalPrice}*\n`;
+    message += `\n✅ ¡Gracias por tu compra!`;
+
+    return message;
   }
 }

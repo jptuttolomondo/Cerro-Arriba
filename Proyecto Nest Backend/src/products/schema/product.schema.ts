@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-// eslint-disable-next-line prettier/prettier
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import { HydratedDocument } from 'mongoose';

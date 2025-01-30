@@ -6,7 +6,14 @@ export class WhatsappController {
   constructor(private readonly whatsappService: WhatsappService) {}
 
   @Post()
-  async sendMessage(@Body() body: { phoneNumber: string; message: string }) {
-    return this.whatsappService.sendMessage(body.phoneNumber, body.message);
+  async sendMessage(
+    @Body()
+    body: {
+      cartItems: any[];
+      totalPrice: number;
+      userDetails: any;
+    },
+  ) {
+    return this.whatsappService.sendMessage(body.userDetails.whatsapp, body);
   }
 }

@@ -7,6 +7,7 @@ import {
 INCREMENT_PRODUCT,
  DECREMENT_PRODUCT,
 OUT_PRODUCT,
+NEW_ORDER
 } from './consts.tsx'
 
 
@@ -40,6 +41,10 @@ export interface AddToCartAction{
     products: Product[]; // Define el tipo `Product` según tus necesidades
 }
 
+export interface OrderState{
+  order:Order[];
+}
+
 export interface CartProps  {
   cart: CartItem[];
   onRemoveFromCart: (productId: string) => void;
@@ -70,4 +75,23 @@ export interface MinusToCartAction{
 export interface OutToCartAction{
   type: typeof OUT_PRODUCT;
   payload: CartItem | CartItem[]
+}
+
+export interface UserDetails{
+  deliveryTime:string;
+  email:string;
+  location:string;
+  name:string;
+  paymentMethod:string;
+  whatsapp:string
+}
+
+export interface Order{
+  cartItems:CartItem|CartItem[];
+  totalPrice:number;
+  userDetails:UserDetails
+}
+export interface PostOrder{
+  type: typeof NEW_ORDER;
+  payload: Order 
 }

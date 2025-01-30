@@ -5,6 +5,9 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { CartItem } from '../types/cart.types.tsx';
 import botonSwal from '../styles/swal.module.css'
 import  styles from '../styles/orderForm.module.css';
+import {postToOrder} from '../redux/actions/order.actions.ts'
+import { useDispatch } from "../redux/store/store.tsx";
+
 type OrderFormProps = {
   cartItems: CartItem[];
   totalPrice:number
@@ -19,6 +22,7 @@ const OrderForm: React.FC<OrderFormProps> =({ cartItems,totalPrice,onOrderSubmit
     deliveryTime: '',
     paymentMethod: 'cash',
   });  
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -36,6 +40,8 @@ const OrderForm: React.FC<OrderFormProps> =({ cartItems,totalPrice,onOrderSubmit
     totalPrice: totalPrice
   };
   console.log('Orden enviada:', orderData);
+dispatch(postToOrder(orderData))
+
 //armar el post de ticket
 
   Swal.fire({

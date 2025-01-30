@@ -96,7 +96,7 @@ const cardListStyles = {
     color: "#fff",
     minHeight: "100vh",
     width: "100%",
-    flexWrap: "wrap" as const
+    flexWrap: "wrap" as const,
   },
   wrapper: {
     backgroundColor: "#333",
@@ -106,10 +106,10 @@ const cardListStyles = {
     cursor: "pointer",
     transition: "transform 0.3s ease-in-out",
     width: "100%",
-    maxWidth: "300px"
+    maxWidth: "300px",
   },
   wrapperHover: {
-    transform: "scale(1.05)"
+    transform: "scale(1.05)",
   },
   overlay: {
     position: "fixed" as const,
@@ -121,7 +121,7 @@ const cardListStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 1000
+    zIndex: 1000,
   },
   overlayContent: {
     display: "flex",
@@ -133,24 +133,24 @@ const cardListStyles = {
     boxShadow: "0 8px 16px rgba(0, 0, 0, 0.4)",
     maxWidth: "400px",
     width: "90%",
-    zIndex: 1001
+    zIndex: 1001,
   },
   overlayImage: {
     width: "100%",
     maxHeight: "200px",
     objectFit: "cover" as const,
     marginBottom: "16px",
-    borderRadius: "8px"
+    borderRadius: "8px",
   },
   overlayDetails: {
     textAlign: "center" as const,
-    color: "#fff"
+    color: "#fff",
   },
   price: {
     fontSize: "16px",
     color: "#fff",
     margin: "8px 0",
-    zIndex: 1002
+    zIndex: 1002,
   },
   button: {
     padding: "10px 20px",
@@ -163,15 +163,15 @@ const cardListStyles = {
     cursor: "pointer",
     transition: "background-color 0.3s ease",
     "&:hover": {
-      backgroundColor: "#0056b3"
-    }
+      backgroundColor: "#0056b3",
+    },
   },
   title: {
     fontSize: "24px",
     marginBottom: "16px",
     textAlign: "center" as const,
     color: "#fff",
-    width: "100%"
+    width: "100%",
   },
   productsSection: {
     display: "grid",
@@ -181,8 +181,8 @@ const cardListStyles = {
     maxWidth: "1200px",
     margin: "0 auto",
     padding: "20px",
-    justifyItems: "center"
-  }
+    justifyItems: "center",
+  },
 };
 
 export default CardList;

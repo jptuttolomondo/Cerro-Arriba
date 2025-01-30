@@ -8,6 +8,6 @@ export const useCartSelectorTotalPrice = () =>
   useSelector((state: RootState) =>
     state.cartReducer.products.reduce(
       (total, item) => total + item.price * (item.quantity || 1),
-      0
-    )
+      0,
+    ),
   );

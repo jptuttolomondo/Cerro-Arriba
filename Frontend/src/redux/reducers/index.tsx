@@ -6,7 +6,7 @@ import orderReducer from "./order.reducer.tsx";
 const rootReducer = combineReducers({
   cartReducer: cartReducer,
   productsReducer: productsReducer,
-  orderReducer: orderReducer
+  orderReducer: orderReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

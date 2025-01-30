@@ -178,8 +178,6 @@
 
 */
 
-
-
 .container {
   padding: 20px;
   max-width: 500px;
@@ -188,23 +186,23 @@
   width: 100%;
 }
 
- .form {
+.form {
   display: flex;
   flex-direction: column as const;
   gap: 10px;
-  flex-wrap: wrap
-};
+  flex-wrap: wrap;
+}
 
- .cartSummary{
-  margin-bottom: 16px
-};
+.cartSummary {
+  margin-bottom: 16px;
+}
 
-.table{
+.table {
   width: 100%;
-  border-collapse: collapse
-};
+  border-collapse: collapse;
+}
 
- .tableHeader{
+.tableHeader {
   background-color: rgb(255, 228, 0);
   color: black;
   font-weight: bold;
@@ -212,36 +210,35 @@
   padding: 8px;
   border-bottom: 2px solid #ddd;
   border-radius: 4px;
-};
+}
 
 .tableRow {
-  border-bottom: 1px solid #ddd
-};
-    field {
-     display: flex;
-       flex-direction: column as const;
-    
-    }
- .tableCell{
+  border-bottom: 1px solid #ddd;
+}
+field {
+  display: flex;
+  flex-direction: column as const;
+}
+.tableCell {
   padding: 8px;
-  text-align: left
-};
+  text-align: left;
+}
 
-.total{
+.total {
   margin-top: 16px;
   text-align: right;
   font-weight: bold;
   font-size: 16px;
-};
+}
 
- .totalHighlight{
+.totalHighlight {
   background-color: rgb(255, 228, 0);
   color: black;
   padding: 2px 4px;
   border-radius: 4px;
-};
+}
 
-.submitButton1{
+.submitButton1 {
   /*padding: 10px;
   background-color:rgb(255, 228, 0);
   color: black;
@@ -249,14 +246,13 @@
   border-radius: 5px;
   cursor: pointer*/
   border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #ffee05;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    color: black;
-};
-
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #ffee05;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: black;
+}

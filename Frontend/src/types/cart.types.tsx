@@ -1,4 +1,4 @@
-import { Product } from "./product.types.tsx"; 
+import { Product } from "./product.types.tsx";
 
 export interface CartItem extends Product {
   quantity: number; // Cantidad de este producto en el carrito
@@ -11,4 +11,3 @@ export interface Cart {
   deliveryTime?: string; // Hora de entrega (opcional)
   deliveryLocation?: string; // Lugar de entrega (opcional)
 }
-

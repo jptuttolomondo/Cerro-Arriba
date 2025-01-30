@@ -8,7 +8,7 @@ import {
   PlusToCartAction,
   MinusToCartAction,
   OutToCartAction,
-  PostOrder
+  PostOrder,
 } from "./interfaces.tsx";
 export type AppActions =
   | ItemSelectedAction

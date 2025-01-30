@@ -1,12 +1,11 @@
 import { Product } from "./product.types.tsx";
 
 export type CardProps = {
-    image: string;
-    name: string;
-    price: number;
-  };
+  image: string;
+  name: string;
+  price: number;
+};
 
-  export type CardListProps = {
-    onAddToCart: (product: Product) => void;
-  };
-  
+export type CardListProps = {
+  onAddToCart: (product: Product) => void;
+};

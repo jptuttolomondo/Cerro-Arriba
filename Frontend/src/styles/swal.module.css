@@ -1,7 +1,7 @@
 .customSwalButton {
-    padding: 10px 20px; /* Ajusta el tamaño del botón */
-    font-size: 16px;  
-    color: black;  /* Tamaño del texto */
-    border: 4px solid black; /* Ancho y color de la línea */
-    border-radius: 5px; /* Bordes redondeados */
-  }
+  padding: 10px 20px; /* Ajusta el tamaño del botón */
+  font-size: 16px;
+  color: black; /* Tamaño del texto */
+  border: 4px solid black; /* Ancho y color de la línea */
+  border-radius: 5px; /* Bordes redondeados */
+}

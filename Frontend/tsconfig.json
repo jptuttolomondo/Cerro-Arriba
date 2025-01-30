@@ -4,10 +4,8 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-  
-    "compilerOptions": {
-      "jsx": "react-jsx"
-    }
-  
-  
+
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }

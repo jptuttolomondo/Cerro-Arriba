@@ -9,26 +9,47 @@ export class OrdersService {
   constructor(@InjectModel(Order.name) readonly OrderModel: Model<Order>) {}
   async create(createOrderDto: CreateOrderDto) {
     try {
-      const createProduct = await this.OrderModel.create(createOrderDto);
-      return createProduct;
+      const createOrder = await this.OrderModel.create(createOrderDto);
+      return createOrder;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
-  findAll() {
-    return `This action returns all orders`;
+  async findAll() {
+    try {
+      const getAllOrders = await this.OrderModel.find();
+      return getAllOrders;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string) {
+    try {
+      const getOrderById = await this.OrderModel.findById(id);
+      return getOrderById;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
-  update(id: number, _updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto) {
+    try {
+      await this.OrderModel.findByIdAndUpdate(id, updateOrderDto);
+      const OrderUpdated = await this.OrderModel.findById(id);
+      return OrderUpdated;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: string) {
+    try {
+      const getOrderById = await this.OrderModel.findByIdAndDelete(id);
+      return getOrderById;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
   }
 }

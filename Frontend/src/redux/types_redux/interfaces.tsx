@@ -8,6 +8,7 @@ import {
   DECREMENT_PRODUCT,
   OUT_PRODUCT,
   NEW_ORDER,
+  SEND_ORDER_BY_WHATSAPP
 } from "./consts.tsx";
 
 export interface ItemSelectedAction {
@@ -88,5 +89,10 @@ export interface Order {
 }
 export interface PostOrder {
   type: typeof NEW_ORDER;
+  payload: Order;
+}
+
+export interface SendOrderByWhatsapp {
+  type: typeof SEND_ORDER_BY_WHATSAPP;
   payload: Order;
 }

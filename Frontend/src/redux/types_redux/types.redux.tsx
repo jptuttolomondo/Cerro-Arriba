@@ -9,6 +9,8 @@ import {
   MinusToCartAction,
   OutToCartAction,
   PostOrder,
+  SendOrderByWhatsapp
+
 } from "./interfaces.tsx";
 export type AppActions =
   | ItemSelectedAction
@@ -18,6 +20,7 @@ export type AppActions =
   | PlusToCartAction
   | MinusToCartAction
   | OutToCartAction
+  | SendOrderByWhatsapp
   | PostOrder; //o todas las que necesitemos
 
 export type RootState = ReturnType<typeof rootReducer>;

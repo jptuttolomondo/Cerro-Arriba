@@ -5,7 +5,9 @@ import "sweetalert2/src/sweetalert2.scss";
 import { CartItem } from "../types/cart.types.tsx";
 import botonSwal from "../styles/swal.module.css";
 import styles from "../styles/orderForm.module.css";
-import { postToOrder, OrderSendByWhatsapp } from "../redux/actions/order.actions.ts";
+import { postToOrder, 
+ // OrderSendByWhatsapp 
+} from "../redux/actions/order.actions.ts";
 import { useDispatch } from "../redux/store/store.tsx";
 
 type OrderFormProps = {
@@ -44,10 +46,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
       cartItems,
       totalPrice: totalPrice,
     };
-    console.log("Orden enviada:", orderData);
-    dispatch(postToOrder(orderData));
+    //console.log("Orden enviada:", orderData);
     
-    dispatch(OrderSendByWhatsapp(orderData));
+    dispatch(postToOrder(orderData));
+ 
+    //dispatch(OrderSendByWhatsapp(orderData));
 
     //armar el post de ticket
 
@@ -64,6 +67,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
     }).then(() => {
       navigate("/"); // Redirige al path principal
     });
+  
   };
 
   return (

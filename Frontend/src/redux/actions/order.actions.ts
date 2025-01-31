@@ -6,13 +6,13 @@ import { Dispatch } from "redux";
 
 export function postToOrder(order: Order) {
   return async function (dispatch: Dispatch<AppActions>) {
-    console.log(order);
     const response = await axios.post(
       import.meta.env.VITE_BACKEND + import.meta.env.VITE_ORDER,
       order,
     );
-
-    return dispatch({ type: NEW_ORDER, payload: response.data });
+ 
+if(response.status!==201) alert('error')
+  else return dispatch({ type: NEW_ORDER, payload: response.data });
   };
 }
   export function OrderSendByWhatsapp(order: Order) {

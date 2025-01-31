@@ -4,12 +4,21 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { WhatsappService } from 'src/whatsapp/whatsapp.service';
 @Injectable()
 export class OrdersService {
-  constructor(@InjectModel(Order.name) readonly OrderModel: Model<Order>) {}
+  constructor(
+    @InjectModel(Order.name) readonly OrderModel: Model<Order>,
+    private readonly whatsappService: WhatsappService,
+  ) {}
+
   async create(createOrderDto: CreateOrderDto) {
     try {
       const createOrder = await this.OrderModel.create(createOrderDto);
+      await this.whatsappService.sendMessage(
+        createOrderDto.userDetails.whatsapp, // Número de WhatsApp del usuario
+        createOrder, // Pasar la orden creada al mensaje
+      );
       return createOrder;
     } catch (error) {
       throw new InternalServerErrorException(error.message);

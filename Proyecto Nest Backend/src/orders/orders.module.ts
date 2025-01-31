@@ -5,6 +5,7 @@ import { Order, OrderSchema } from './schema/order.schema';
 import { UserDetails, UserDetailsSchema } from './schema/userDetails.schema';
 import { CartItem, CartSchema } from './schema/cart.schema';
 import { MongooseModule } from '@nestjs/mongoose';
+import { WhatsappService } from 'src/whatsapp/whatsapp.service';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -23,6 +24,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]),
   ],
   controllers: [OrdersController],
-  providers: [OrdersService],
+  providers: [OrdersService, WhatsappService],
 })
 export class OrdersModule {}

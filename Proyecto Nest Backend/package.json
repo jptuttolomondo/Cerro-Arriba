@@ -26,6 +26,8 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/platform-express": "^10.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "mongoose": "^8.8.3",
     "puppeteer": "^24.1.1",
     "qrcode-terminal": "^0.12.0",

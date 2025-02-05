@@ -3,9 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import CardList from "./components/cardList.tsx";
 import Cart from "./components/cart.tsx";
 import { Product } from "./types/product.types.tsx";
+import LandingPage from "./components/landPage.tsx"
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<Product[]>([]);
+  const [showLanding, setShowLanding] = useState(true);
 
   const handleAddToCart = (product: Product) => {
     setCart((prevCart) => {
@@ -23,6 +25,11 @@ const App: React.FC = () => {
   };
 
   return (
+    <div>
+    {showLanding ? (
+     <LandingPage onEnter={() => setShowLanding(false)} />
+    ) :(
+
     <div style={styles.appContainer}>
       {/* Sección de productos */}
       <div style={styles.productsSection}>
@@ -47,6 +54,9 @@ const App: React.FC = () => {
         />
       </div>
     </div>
+    )
+    }
+      </div>
   );
 };
 

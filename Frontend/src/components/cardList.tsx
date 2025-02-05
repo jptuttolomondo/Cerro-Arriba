@@ -37,7 +37,7 @@ const CardList: React.FC<CardListProps> = () => {
 
   return (
     <div style={cardListStyles.container}>
-      <h1 style={cardListStyles.title}>Productos</h1> {/* título */}
+      <h1 style={cardListStyles.title}>Nuestra Cafetería</h1> {/* título */}
       <div style={cardListStyles.productsSection}></div>
       {products.map((product) => (
         <div

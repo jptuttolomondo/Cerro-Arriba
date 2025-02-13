@@ -1,4 +1,5 @@
 .landing_container {
+  background-color: black;
   margin: 1vh;
   display: flex;
   flex-direction: column;
@@ -21,23 +22,24 @@
 .image_title {
   color: transparent;
   font-family: 'Corbel', Arial, sans-serif;
-  background-color: #242424;
+  background-color: black;
+  color:white;
   padding: 0.1vh 1vw;
   border-radius: 0.8vh;
-  font-size: 3.5vw;
+  font-size: 12vw;
   font-weight: bolder;
   text-shadow: 0.1vh 0.1vh 0.4vh rgba(0, 0, 0, 0.8);
-  -webkit-text-stroke: 0.1vh white;
+  /*-webkit-text-stroke: 0.1vh white;*/
   transition: transform 0.3s ease;
   text-align: center;
 }
 
 .landing_subtitle {
   color: white;
-  background-color: #242424;
+  background-color:black;
   padding: 0.1vh 1vw;
   border-radius: 0.8vh;
-  font-size: 2vw;
+  font-size: 7.5vw;
   font-weight: bolder;
   text-align: center;
 }
@@ -47,14 +49,15 @@
 }
 
 .landing_text {
-  font-size: 2vw;
+  font-size: 8vw;
+  color:gray;
   margin-bottom: 3vh;
 }
 
 .landing_image {
-  padding: 1vh 1vw;
-  width: 80%;
-  max-width: 50vw;
+  padding: 1vh 0.5vw;
+  width: 90%;
+  max-width: 80vw;
   border-radius: 2vh;
   display: block;
 
@@ -64,14 +67,14 @@
   margin-top: 2vh;
   background-color: #ffcc00;
   color: black;
-  padding: 2vh 2vw;
+  padding: 1vh 1vw;
 
-  font-size: 2vw;
+  font-size: 8vw;
   border-radius: 0.4vh;
   box-shadow: 0 0.4vh 0.6vh rgba(255, 204, 0, 0.5);
   transition: background-color 0.3s ease;
   width: 100%;
-  max-width: 30vw;
+  max-width: 37vw;
   box-sizing: border-box;
 }
 
@@ -84,7 +87,7 @@
   bottom: 2vh;
   right: 2vh;
   background-color: #25d366;
-  padding: 1.5vh;
+  padding: 1vh;
   border-radius: 50%;
   box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.3);
   display: flex;
@@ -97,11 +100,16 @@
 
 .whatsapp_icon {
   color: white;
+  font-size: 8vw;
+}
+.whatsapp_icon:hover {
+  color:black;
   font-size: 2vw;
 }
 
 .whatsapp_button:hover {
-  background-color: #1fff0b;
+  background-color: #0be3ff;
+  color:black
 }
 
 .whatsapp_tooltip {
@@ -112,7 +120,7 @@
   color: white;
   padding: 0.5vh 1vw;
   border-radius: 0.6vh;
-  font-size: 1.8vw;
+  font-size: 5vw;
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
@@ -130,12 +138,12 @@
 
 .facebook_button, .instagram_button {
   position: fixed;
-  bottom: 8vh; /* Ajusta la distancia desde la parte inferior */
+  bottom: 16vh; /* Ajusta la distancia desde la parte inferior */
   right: 2vh; /* Ajusta la distancia desde la parte derecha */
   background-color: #1877F2; /* Color azul de Facebook */
   color: white;
   padding: 0.5em 0.5em; /* 10px 20px en em */
-  font-size: 1rem; /* 16px, tamaño de fuente base */
+  font-size: 1.5rem; /* 16px, tamaño de fuente base */
   font-weight: 600;
   border: none;
   border-radius: 0.25em; /* 4px en em */
@@ -150,25 +158,28 @@
 
 
 .facebook_button {
-  bottom: 16vh; /* Ajusta la distancia desde la parte inferior */
+  bottom: 24vh; /* Ajusta la distancia desde la parte inferior */
   background-color: #1877F2; /* Azul de Facebook */
 }
 
 .instagram_button {
   background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF); /* Degradado de Instagram */
+  bottom: 12vh;
 }
 
 .facebook_button:hover {
-  background-color: #1568C0; /* Azul más oscuro al pasar el ratón */
+  background-color: #1568C0; 
+  color:black;/* Azul más oscuro al pasar el ratón */
 }
 
 .instagram_button:hover {
   background: linear-gradient(135deg, #F58529, #F04D74, #8134AF); /* Colores más intensos al pasar el ratón */
+  color:black;
 }
 
 .facebook_button .icon, .instagram_button .icon {
   margin-right: 0.5em; /* 8px en em */
-  font-size: 1.25em; /* 20px en em */
+  font-size: 4em; /* 20px en em */
 }
 
 

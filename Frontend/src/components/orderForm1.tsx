@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import { CartItem } from "../types/cart.types.tsx";
 import botonSwal from "../styles/swal.module.css";
 import styles from "../styles/orderForm.module.css";
-import { postToOrder } from "../redux/actions/order.actions.ts";
+import {
+  postToOrder
+  // OrderSendByWhatsapp
+} from "../redux/actions/order.actions.ts";
 import { useDispatch } from "../redux/store/store.tsx";
 import LocationPicker from "./locationPicker.tsx";
 
@@ -15,7 +17,6 @@ type OrderFormProps = {
   totalPrice: number;
   onOrderSubmit: () => void;
 };
-
 const OrderForm: React.FC<OrderFormProps> = ({
   cartItems,
   totalPrice,
@@ -35,36 +36,14 @@ const OrderForm: React.FC<OrderFormProps> = ({
     lat: number;
     lng: number;
   } | null>(null);
-  const [errors, setErrors] = useState<{ whatsapp?: string ;deliveryTime:string}>({
-    deliveryTime: "" 
-  });
-
   const [showMap, setShowMap] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    if (name === "whatsapp") {
-      const isValidWhatsApp = /^[1-9]\d{7,14}$/.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        whatsapp: isValidWhatsApp ? "" : "Número de WhatsApp no válido. Sin + inicial",
-      }));
-    }
-    if(name==="deliveryTime"){
-
-      const isValidTime = /^(0[7-9]|1[0-2]):[0-5][0-9]$/.test(value);
-
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          deliveryTime: isValidTime? "":"Ingrese una hora entre 07:00 y 12:00",
-        }));
-       
-      
-    }
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -75,7 +54,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
       locationCoords: `${coords.lat},${coords.lng}`
     }));
     setShowMap(false);
-    //console.log(formData);
+    console.log(formData);
   };
 
   const handleUseCurrentLocation = () => {
@@ -90,7 +69,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
           (position) => {
             const { latitude, longitude } = position.coords;
             alert(`Ubicación obtenida: ${latitude}, ${longitude}`);
-            setLocationCoord({ lat: latitude, lng: longitude });
+            setLocationCoord({ lat: latitude, lng: longitude }); // Guarda la ubicación en el estado
           },
           (error) => {
             alert(`Error al obtener ubicación: ${error.message}`);
@@ -112,8 +91,13 @@ const OrderForm: React.FC<OrderFormProps> = ({
       cartItems,
       totalPrice: totalPrice
     };
-console.log('orderData:',orderData)
+    //console.log("Orden enviada:", orderData);
+
     dispatch(postToOrder(orderData));
+
+    //dispatch(OrderSendByWhatsapp(orderData));
+
+    //armar el post de ticket
 
     Swal.fire({
       title: `Hola ${formData.name}, Muchas Gracias!`,
@@ -121,25 +105,14 @@ console.log('orderData:',orderData)
       icon: "success",
       confirmButtonColor: "rgb(255, 228, 0)",
       confirmButtonText: "Volver al inicio",
+
       customClass: {
         confirmButton: botonSwal.customSwalButton
       }
     }).then(() => {
-      navigate("/");
+      navigate("/"); // Redirige al path principal
     });
   };
-  useEffect(() => {
-    if (locationCoord) {
-      setFormData((prevData) => {
-        const updatedData = {
-          ...prevData,
-          locationCoords: `${locationCoord.lat},${locationCoord.lng}`,
-        };
-      //  console.log("Actualizando formData.locationCoords:", updatedData);
-        return updatedData;
-      });
-    }
-  }, [locationCoord]);
 
   return (
     <div className={styles.container}>
@@ -177,25 +150,25 @@ console.log('orderData:',orderData)
         <div className={styles.field}>
           <label>Nombre:</label>
           <input
-    type="text"
-    name="name"
-    value={formData.name}
-    onChange={handleChange}
-    required
-  />
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div className={styles.field}>
-          <label>Email (opcional):</label>
+          <label>Email:</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            
+            required
           />
         </div>
         <div className={styles.field}>
-          <label>Dirección de entrega:</label>
+          <label>Ubicación:</label>
           <input
             type="text"
             name="location"
@@ -213,21 +186,16 @@ console.log('orderData:',orderData)
             onChange={handleChange}
             required
           />
-           {errors.whatsapp && <p className={styles.error}>{errors.whatsapp}</p>}
         </div>
         <div className={styles.field}>
-          <label>Horario de entrega:(de 07:00 a 12:00 hs)</label>
+          <label>Horario de entrega:</label>
           <input
-            type="time"
+            type="text"
             name="deliveryTime"
             value={formData.deliveryTime}
             onChange={handleChange}
             required
-            min="07:00"
-            max="12:00"
-            step="60" 
           />
-            {errors.deliveryTime && <p className={styles.error}>{errors.deliveryTime}</p>}
         </div>
         <div className={styles.field}>
           <label>Medio de pago:</label>
@@ -242,40 +210,35 @@ console.log('orderData:',orderData)
             <option value="credit_card">Tarjeta de crédito</option>
           </select>
         </div>
-
-        <div className={styles.field}>
-          <label>Ubicación (opcional):</label>
+        <div>
+          {" "}
           <button
             type="button"
-            className={`${styles.locationButton} ${styles.obtain}`}
             onClick={() => setShowMap(true)}
+            value={formData.locationCoords}
           >
-            📍Ubicacion de entrega
+            📍 Obtener mi ubicación
           </button>
           {showMap && (
             <LocationPicker onLocationSelect={handleSelectLocation} />
           )}
           {locationCoord && (
             <p>
-              Ubicación guardada: {locationCoord.lat.toFixed(4)},{" "}
-              {locationCoord.lng.toFixed(4)}
+              Ubicación guardada: {locationCoord?.lat.toFixed(4)},{" "}
+              {locationCoord?.lng.toFixed(4)}
             </p>
           )}
-          <button
-            type="button"
-            className={`${styles.locationButton} ${styles.use}`}
-            onClick={handleUseCurrentLocation}
-          >
-            📍 Entregar en mi ubicación actual
-          </button>
         </div>
+        <button type="button" onClick={handleUseCurrentLocation}>
+          📍 Usar mi ubicación actual
+        </button>
 
         <button
           type="submit"
           className={styles.submitButton1}
           onClick={onOrderSubmit}
         >
-          Enviar Pedido
+          Enviar Orden
         </button>
       </form>
     </div>

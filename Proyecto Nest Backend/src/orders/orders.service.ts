@@ -14,12 +14,13 @@ export class OrdersService {
 
   async create(createOrderDto: CreateOrderDto) {
     try {
-      const createOrder = await this.OrderModel.create(createOrderDto);
+      //  const createOrder = await this.OrderModel.create(createOrderDto);
+      console.log(createOrderDto);
       await this.whatsappService.sendMessage(
         createOrderDto.userDetails.whatsapp, // Número de WhatsApp del usuario
-        createOrder, // Pasar la orden creada al mensaje
+        createOrderDto, // Pasar la orden creada al mensaje
       );
-      return createOrder;
+      return createOrderDto;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }

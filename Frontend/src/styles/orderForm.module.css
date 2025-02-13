@@ -1,258 +1,136 @@
-/*
-// const stylesOrderForm = {
-//     container: {
-//       padding: '20px',
-//       maxWidth: '500px',
-//       margin: '0 auto',
-//     },
-//     form: {
-//       display: 'flex',
-//       flexDirection: 'column' as const,
-//       gap: '10px',
-//     },
-//     cartSummary: {
-//       marginBottom: '16px',
-//     },
-//     table: {
-//       width: '100%',
-//       borderCollapse: 'collapse' as const,
-//     },
-//     tableHeader: {
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color:'black',
-//       fontWeight: 'bold' as const,
-//       textAlign: 'center' as const,
-//       padding: '8px',
-//       borderBottom: '2px solid #ddd',
-//       borderRadius: '4px',
-//     },  tableRow: {
-//       borderBottom: '1px solid #ddd',
-//     },
-//     tableCell: {
-//       padding: '8px',
-//       textAlign: 'left' as const,
-//     },
-//     field: {
-//       display: 'flex',
-//       flexDirection: 'column' as const,
-//       gap: '5px',
-//     },
-//     total: {
-//       marginTop: '16px',
-//       textAlign: 'right' as const,
-//       fontWeight: 'bold' as const,
-//       fontSize: '16px',
-//     },
-  
-//     totalHighlight: {
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color: 'black',
-//       padding: '2px 4px',
-//       borderRadius: '4px',
-//     },
-//     submitButton: {
-//       padding: '10px',
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color: 'black',
-//       border: 'none',
-//       borderRadius: '5px',
-//       cursor: 'pointer',
-//     },
-    
-//   };
-// export default stylesOrderForm  
-// const stylesOrderForm = {
-//     container: {
-//       padding: '20px',
-//       maxWidth: '100%',
-//       margin: '0 auto',
-//       boxSizing: 'border-box',
-//       width: '100%',
-//       '@media (max-width: 768px)': {
-//         padding: '10px',
-//       },
-//     },
-//     form: {
-//       display: 'flex',
-//       flexDirection: 'column' as const,
-//       gap: '15px',
-//       '@media (max-width: 768px)': {
-//         gap: '12px',
-//       },
-//     },
-//     cartSummary: {
-//       marginBottom: '16px',
-//       '@media (max-width: 768px)': {
-//         marginBottom: '12px',
-//       },
-//     },
-//     table: {
-//       width: '100%',
-//       borderCollapse: 'collapse' as const,
-//       '@media (max-width: 768px)': {
-//         fontSize: '12px', // Reduces font size on smaller screens
-//       },
-//     },
-//     tableHeader: {
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color: 'black',
-//       fontWeight: 'bold' as const,
-//       textAlign: 'center' as const,
-//       padding: '8px',
-//       borderBottom: '2px solid #ddd',
-//       borderRadius: '4px',
-//       '@media (max-width: 768px)': {
-//         padding: '6px', // Reduces padding on smaller screens
-//       },
-//     },
-//     tableRow: {
-//       borderBottom: '1px solid #ddd',
-//       '@media (max-width: 768px)': {
-//         fontSize: '14px',
-//       },
-//     },
-//     tableCell: {
-//       padding: '8px',
-//       textAlign: 'left' as const,
-//       '@media (max-width: 768px)': {
-//         padding: '6px',
-//       },
-//     },
-//     field: {
-//       display: 'flex',
-//       flexDirection: 'column' as const,
-//       gap: '10px',
-//       '@media (max-width: 768px)': {
-//         gap: '8px',
-//       },
-//     },
-//     total: {
-//       marginTop: '16px',
-//       textAlign: 'right' as const,
-//       fontWeight: 'bold' as const,
-//       fontSize: '16px',
-//       '@media (max-width: 768px)': {
-//         fontSize: '14px', // Reduces font size for smaller screens
-//         marginTop: '12px',
-//       },
-//     },
-//     totalHighlight: {
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color: 'black',
-//       padding: '2px 4px',
-//       borderRadius: '4px',
-//       '@media (max-width: 768px)': {
-//         padding: '1px 3px', // Adjust padding on smaller screens
-//       },
-//     },
-//     submitButton: {
-//       padding: '10px',
-//       backgroundColor: 'rgb(255, 228, 0)',
-//       color: 'black',
-//       border: 'none',
-//       borderRadius: '5px',
-//       cursor: 'pointer',
-//       fontSize: '16px',
-//       '@media (max-width: 768px)': {
-//         fontSize: '14px', // Reduces font size for smaller screens
-//         padding: '8px',
-//       },
-//     },
-//     '@media (max-width: 768px)': {
-//       container: {
-//         padding: '15px',
-//       },
-//       form: {
-//         gap: '12px',
-//       },
-//       table: {
-//         fontSize: '12px', // Adjust font size for smaller screens
-//       },
-//       total: {
-//         fontSize: '14px',
-//       },
-//     },
-//   };
-  
-//   export default stylesOrderForm;
-
-*/
-
+/* Contenedor general del formulario */
 .container {
-  padding: 20px;
-  max-width: 500px;
+  padding: 1.25rem;           /* 20px */
+  max-width: 31.25rem;        /* 500px */
   margin: 0 auto;
   box-sizing: border-box;
   width: 100%;
 }
 
+/* Estilo del formulario con mayor espaciado entre campos */
 .form {
   display: flex;
-  flex-direction: column as const;
-  gap: 10px;
+  flex-direction: column;
+  gap: 1rem;                  /* Espaciado de 16px entre campos */
   flex-wrap: wrap;
 }
 
-.cartSummary {
-  margin-bottom: 16px;
+/* Cada campo del formulario */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;   /* 12px de separación entre etiqueta e input */
+  margin-bottom: 1rem;
 }
 
+/* Estilos para inputs y selects dentro de .field */
+.field input,
+.field select {
+  font-size: 1.2rem;         /* Aumenta el tamaño de la fuente */
+  padding: 0.75rem;          /* Aumenta el espacio interno */
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.5rem;     /* Bordes redondeados */
+  width: 100%;               /* Ocupa el 100% del contenedor padre */
+  box-sizing: border-box;    /* Para que el padding no aumente el ancho total */
+}
+
+/* Opcional: Aumentar el tamaño de las etiquetas si es necesario */
+.field label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+/* Resumen del pedido (tabla y total) */
+.cartSummary {
+  margin-bottom: 1rem;
+}
+
+/* Tabla del pedido */
 .table {
   width: 100%;
   border-collapse: collapse;
 }
 
+/* Encabezado de la tabla:
+   - Color amarillo (igual al botón de flecha)
+   - Bordes redondeados en ambos extremos
+   - Letras más grandes */
 .tableHeader {
-  background-color: rgb(255, 228, 0);
+  background-color: #ffee05;
   color: black;
   font-weight: bold;
   text-align: center;
-  padding: 8px;
-  border-bottom: 2px solid #ddd;
-  border-radius: 4px;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;         /* Bordes redondeados */
+  font-size: 1.2rem;
 }
 
+/* Filas de la tabla */
 .tableRow {
   border-bottom: 1px solid #ddd;
 }
-field {
-  display: flex;
-  flex-direction: column as const;
-}
+
+/* Celdas de la tabla */
 .tableCell {
-  padding: 8px;
+  padding: 0.5rem;
   text-align: left;
 }
 
+/* Estilo del total */
 .total {
-  margin-top: 16px;
+  margin-top: 1rem;
   text-align: right;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 1.25rem;
 }
 
+/* Resaltado del total */
 .totalHighlight {
-  background-color: rgb(255, 228, 0);
+  background-color: #ffee05;
   color: black;
-  padding: 2px 4px;
-  border-radius: 4px;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
 }
 
+/* Botón de envío de orden (usado en el form) */
 .submitButton1 {
-  /*padding: 10px;
-  background-color:rgb(255, 228, 0);
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer*/
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #ffee05;
+  background-color: #ffee05;   /* Color amarillo, igual al de la flecha */
   cursor: pointer;
   transition: border-color 0.25s;
   color: black;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Botones de ubicación (se mostrará solo uno según la opción seleccionada) */
+.locationButton {
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: black;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Botón para "Obtener mi ubicación": color distintivo */
+.locationButton.obtain {
+  background-color: #a3d2ca;
+}
+
+/* Botón para "Usar mi ubicación actual": color distinto */
+.locationButton.use {
+  background-color: #ffb6b9;
 }

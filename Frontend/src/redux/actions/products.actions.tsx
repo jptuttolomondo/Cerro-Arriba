@@ -6,6 +6,7 @@ import { GET_ALL_PRODUCTS } from "../types_redux/consts.tsx";
 
 export function getAllProducts() {
   return async function (dispatch: Dispatch<AppActions>) {
+  console.log(import.meta.env.VITE_BACKEND+import.meta.env.VITE_PRODUCTS_BACK)
     const response = await axios.get(
       import.meta.env.VITE_BACKEND + import.meta.env.VITE_PRODUCTS_BACK,
     );

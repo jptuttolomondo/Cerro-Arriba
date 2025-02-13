@@ -43,14 +43,13 @@ export default function LandingPage({ onEnter }: LandingPageProps){
       >
       Delivery de desayunos en Humahuaca
       </motion.h2>
-      <motion.h3 
-        className={style.landing_text}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+      <motion.h5        className={style.landing_text}
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
         transition={{ duration: 0.5 }}
       >
-     Te llevamos tu desayuno adonde quieras dentro de la ciudad
-      </motion.h3>
+     ✅ Te llevamos tu desayuno adonde quieras dentro de la ciudad
+      </motion.h5>
 
       <motion.p 
         className={style.landing_text}
@@ -58,7 +57,7 @@ export default function LandingPage({ onEnter }: LandingPageProps){
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-      Conocé nuestras opciones para darte el gusto o un regalo !
+     🎂🎉 Conocé nuestras opciones para darte el gusto o un regalo !
       </motion.p>
 
       
@@ -75,7 +74,7 @@ export default function LandingPage({ onEnter }: LandingPageProps){
 
 
       <button className={style.landing_button}onClick={onEnter} >
-        Mira lo que tenemos para vos!
+        Mirá más!
       </button>
       <a href={facebookLink} target="_blank" rel="noopener noreferrer" className={style.facebook_button}>
         <FaFacebook className={style.facebook_icon} />

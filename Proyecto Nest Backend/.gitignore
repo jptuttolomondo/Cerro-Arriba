@@ -13,7 +13,8 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-
+whatsapp-session/
+certs/
 # OS
 .DS_Store
 

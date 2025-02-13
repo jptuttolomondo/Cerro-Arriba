@@ -1,0 +1,46 @@
+
+    .buttonContainer {
+      position: fixed as const;
+      bottom: 2vh;
+      right: 2vh;
+      z-Index: 1000 ;
+      display : flex;
+      flex-Direction: column as const;
+      align-Items: center as const
+    }
+    .cartButton {
+      position: relative as const;
+      background-color: rgb(255, 228, 0);
+      border: none;
+      border-radius: 50%;
+      width: 3rem;   /* Medida relativa (3rem)*/
+      height: 3rem;  /* Medida relativa (3rem)*/
+      display: flex;
+      align-items: center as const;
+      justify-content: center as const;
+      cursor: pointer;
+      box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.3);
+    }
+    .cartIcon{
+      font-size: 1.5rem;
+      color: black;
+    }
+    .badge{
+      position: absolute as const;
+      top: -0.5rem;
+      right: -0.5rem;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 0.2rem 0.4rem;
+      font-size: 0.8rem
+    }
+    .toast {
+      margin-top: 0.5rem;
+      background-color: #222;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.4rem;
+      font-size: 0.8rem;
+      opacity: 0.9
+    }

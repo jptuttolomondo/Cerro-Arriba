@@ -6,15 +6,23 @@ import Card from "./cards.tsx";
 import { Product } from "../types/product.types.tsx";
 import { CardListProps } from "../types/card.types.tsx";
 import { AddToCart } from "../redux/actions/carts.actions.tsx";
+import { cardListStyles } from "../styles/cardList.styles.tsx";
+import { useMediaQuery } from "react-responsive";
 
 const CardList: React.FC<CardListProps> = () => {
+    // Detecta si es móvil (por ejemplo, ancho menor o igual a 768px)
+    const isMobile = useMediaQuery({ query: "(max-width: 768px)" });  
   const [loading, setLoading] = useState(true);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
+  const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
 
   const products = useProductsSelector();
+  
   const handleAddToCart = (product: Product) => {
-    return dispatch(AddToCart(product));
+    dispatch(AddToCart(product));
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
   };
 
   useEffect(() => {
@@ -27,7 +35,6 @@ const CardList: React.FC<CardListProps> = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, [dispatch]);
 
@@ -35,9 +42,26 @@ const CardList: React.FC<CardListProps> = () => {
     return <p>Cargando productos...</p>;
   }
 
+
+ 
+
+  // Si es móvil, sobreescribimos algunos estilos para que la lista se muestre vertical
+  const containerStyle = isMobile
+    ? {
+        ...cardListStyles.container,
+        flexDirection: "column" as const, // Apila los elementos verticalmente
+        alignItems: "flex-start", // Alinea a la izquierda
+      }
+    : cardListStyles.container;
+
   return (
-    <div style={cardListStyles.container}>
-      <h1 style={cardListStyles.title}>Nuestra Cafetería</h1> {/* título */}
+    <div style={containerStyle}>
+      <h1 style={cardListStyles.title}>Nuestra Cafetería</h1>
+      {showToast && (
+        <div style={cardListStyles.toast}>
+          Producto agregado
+        </div>
+      )}
       <div style={cardListStyles.productsSection}></div>
       {products.map((product) => (
         <div
@@ -84,105 +108,6 @@ const CardList: React.FC<CardListProps> = () => {
       )}
     </div>
   );
-};
-
-const cardListStyles = {
-  container: {
-    display: "flex" as const,
-    alignItems: "center",
-    gap: "20px",
-    padding: "20px",
-    backgroundColor: "#121212",
-    color: "#fff",
-    minHeight: "100vh",
-    width: "100%",
-    flexWrap: "wrap" as const,
-  },
-  wrapper: {
-    backgroundColor: "#333",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    overflow: "hidden",
-    cursor: "pointer",
-    transition: "transform 0.3s ease-in-out",
-    width: "100%",
-    maxWidth: "300px",
-  },
-  wrapperHover: {
-    transform: "scale(1.05)",
-  },
-  overlay: {
-    position: "fixed" as const,
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    zIndex: 1000,
-  },
-  overlayContent: {
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "center",
-    backgroundColor: "#222",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.4)",
-    maxWidth: "400px",
-    width: "90%",
-    zIndex: 1001,
-  },
-  overlayImage: {
-    width: "100%",
-    maxHeight: "200px",
-    objectFit: "cover" as const,
-    marginBottom: "16px",
-    borderRadius: "8px",
-  },
-  overlayDetails: {
-    textAlign: "center" as const,
-    color: "#fff",
-  },
-  price: {
-    fontSize: "16px",
-    color: "#fff",
-    margin: "8px 0",
-    zIndex: 1002,
-  },
-  button: {
-    padding: "10px 20px",
-
-    backgroundColor: "rgb(255, 228, 0)",
-
-    color: "rgb(0 0 0)",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-    "&:hover": {
-      backgroundColor: "#0056b3",
-    },
-  },
-  title: {
-    fontSize: "24px",
-    marginBottom: "16px",
-    textAlign: "center" as const,
-    color: "#fff",
-    width: "100%",
-  },
-  productsSection: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-    gap: "16px",
-    width: "100%",
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "20px",
-    justifyItems: "center",
-  },
 };
 
 export default CardList;

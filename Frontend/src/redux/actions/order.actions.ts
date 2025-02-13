@@ -6,8 +6,9 @@ import { Dispatch } from "redux";
 
 export function postToOrder(order: Order) {
   return async function (dispatch: Dispatch<AppActions>) {
+    console.log('order en action',order)
     const response = await axios.post(
-      import.meta.env.VITE_BACKEND + import.meta.env.VITE_ORDER,
+      import.meta.env.VITE_BACKEND+import.meta.env.VITE_ORDER,
       order,
     );
  

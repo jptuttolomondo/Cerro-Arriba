@@ -13,6 +13,10 @@ export class UserDetails {
 
   @Prop({ required: true, unique: true }) location: string;
 
+  @Prop({ required: false }) latitud: number;
+
+  @Prop({ required: false }) longitud: number;
+
   @Prop({ required: true }) paymentMethod: string;
 
   @Prop({ required: true }) whatsapp: string;
